@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-full min-h-screen bg-zinc-900  p-10 text-zinc-100">
+        <div class="size-[100px] bg-zinc-100 rounded-lg overflow-hidden">
+            <a href="/uploadimg">
+                <img src="<%=userdata.userprofile%>" alt="" class="w-full h-full object-cover overflow-hidden bg-center object-center">
+            </a>
+        </div>
+        <div class="flex w-full justify-between items-center ">
+            <h1 class="mb-8 font-light text-3xl"><span class="font-bold"> Hi</span> ,<%=userdata.name%> 👋👋</h1>
+            <a href="/logout" class="text-red-800 hover:text-red-400">logout</a>
+        </div>
+       
+        <h1 class=" font-light text-1xl">your username ,<%=userdata.username%></h1>
+      
+        <form action="/post" method="post" class="space-y-4">
+            <h5>create a post</h5>
+            <textarea name="content" class="resize-none w-full p-3 bg-transparent border-2 border-zinc-600 rounded-lg" placeholder="enter content" id="" ></textarea>
+            <button type="submit" class="p-2 bg-blue-500 text-white rounded-lg"> create a post</button>
+        </form>
+
+        <h1 class="my-8 text-4xl font-light">your posts</h1>
+        <div class="flex flex-wrap gap-2 ">
+            <% if (userdata.posts.length === 0) { %>
+                <h3 class="font-light text-zinc-400">No posts</h3>
+            <% } else { %>
+                <% userdata.posts.reverse().forEach((post) => { %>
+                    <div class=" min-w-72 mb-2 rounded-lg p-5 border-2 border-zinc-700 bg-zinc-700 space-y-4">
+                        <h4 class="mb-2 text-blue-500">@<%= userdata.username %></h4>
+                        <p class="text-sm tracking-tight"><%= post.content %></p>
+                        <div class="flex ">
+                            likes: <%=post.likes.length%>
+                         </div>
+                        <div class="flex justify-between items-center mt-5">
+                            <a href="/edit/<%=post._id%>" class="text-yellow-700">Edit</a>
+                            <div class="">
+                                
+                                <a href="/like/<%=post._id%>" class="text-blue-500">
+                                    <%if(post.likes.length===0){%>
+                                        Like
+                                    <%}else{%>
+                                       unlike
+                                    <%}%>
+                                    
+                           
+                                
+                                
+                                </a>
+                            </div>
+                          
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+      
+    </div>
+    
+</body>
+</html>
