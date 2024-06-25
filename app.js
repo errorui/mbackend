@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const user = require("./models/user");
 const post = require("./models/post");
 const multerconfig = require("./config/multerconfig");
-
+require('dotenv').config()
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -143,13 +143,6 @@ function isLoggedInUseheaders(req, res, next) {
   }
 }
 
-
-
-
-
-
-
-
 app.get("/uploadimg", isLoggedIn, (req, res) => {
   res.render("profileimg");
 });
@@ -167,5 +160,6 @@ app.post(
     res.redirect("/profile");
   }
 );
+const port=process.env.PORT
 
-app.listen(3000, () => console.log("listening at 3000"));
+app.listen(port, () => console.log("listening at 3000"));
