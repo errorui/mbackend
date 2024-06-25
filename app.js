@@ -14,6 +14,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.use(cookieParser());
 
+
+const mongoose = require("mongoose");
+require('dotenv').config()
+mongoose.connect(process.env.MONGO_URL).then(() => {
+  console.log("connected to  mongodb server");
+}).catch((e)=>{
+  console.log("Error :" ,e)
+});
+
+
 app.get("/", (req, res) => {
   res.render("index");
 });
